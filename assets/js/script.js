@@ -12,17 +12,18 @@ function myFunction1(){
       }
     } 
 
-function test(){
-    alert("button clicked")
+
+
+function eiaApiFetch(){
+  fetch('http://api.eia.gov/series/?series_id=NG.N3010WI2.M&api_key='&API&'&category_id=480302')
+  .then(response => response.json())
+  .then(data => data.series[0].data.forEach(element=>console.log(element)));
+
+  //push .data to variable 
+  //create two array variables
+  //push first value from each .data array into array variable 
+  //for each i; 1 to 100; i++{
+  //data.serise[i].data.length-1 (last value) 
+  //push into array 
+  //}
 }
-
-// function checkboxHide(){
-//     cBox = document.getElementsByClassName('cBox1')
-//     box = document.getElementsByClassName('box1')
-
-//     if (cBox.checked == true){
-//         box[0].style.display = (box[0].style.display != 'none') ? 'none' : 'block';
-//       } else {
-//         box[0].style.display = "none";
-//       }
-// }
