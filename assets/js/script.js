@@ -12,37 +12,55 @@ function myFunction1(){
       }
     } 
 
-var API = key
+var API = ''
+var prodMonth = []
+var consumption = []
 
-
-function eiaApiFetch(){
+async function latest5YearsUsage(){
   fetch(`http://api.eia.gov/series/?series_id=NG.N3010WI2.M&api_key=${API}&category_id=480302`)
   .then(response => response.json())
   .then(data =>{
     var output = data.series[0].data
-  
-    var prodMonth = []
-    var consumption = []
 
-    for (i=0; i <100; i++){
+
+    for (i=0; i <60; i++){
       prodMonth.push(output[i][0]);
     }
+    console.log('built prodMonth')
     console.log(prodMonth)
     
-    for (i=0; i<100; i++){
+    for (i=0; i<60; i++){
       consumption.push(output[i][1])
     }
+    console.log('built consumption')
     console.log(consumption)
-
-    });
-    
-  // console.log(output[0][0])
-  //   })
+    })
+  
+   .then(fiveYearsChart());
+   console.log('built chart')
   }
-  //push .data to variable 
-  //create two array variables
-  //push first value from each .data array into array variable 
-  //for each i; 1 to 100; i++{
-  //data.serise[i].data.length-1 (last value) 
-  //push into array 
-  //}
+
+  function fiveYearsChart(){
+    const ctx = document.getElementById('chart1');
+    new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: prodMonth,
+        datasets: [{
+          fill: false,
+          pointRadius:0,
+          lineTension: 1,
+          backgroundColor: "rgb(0, 0, 0)",
+          borderColor: "rgb(0, 0, 0)",
+          data: consumption,
+          normalized:true,
+          parsing:false
+        }]
+      },
+      options: {
+        legend: {display: false},
+        animation: false
+      }
+    });
+  }
+
